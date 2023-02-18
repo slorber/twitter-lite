@@ -38,6 +38,7 @@ const defaults = {
 // It appears that JSON payloads don't need to be included in the signature,
 // because sending DMs works without signing the POST body
 const JSON_ENDPOINTS = [
+  'measurement/conversions',
   'direct_messages/events/new',
   'direct_messages/welcome_messages/new',
   'direct_messages/welcome_messages/rules/new',
