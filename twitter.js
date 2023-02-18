@@ -253,14 +253,15 @@ class Twitter {
    *   The `_header` property will be set to the Response headers (useful for checking rate limits)
    */
   post(resource, body) {
+    const isJson = JSON_ENDPOINTS.some(r => (resource.startsWith(r)));
     const { requestData, headers } = this._makeRequest(
       'POST',
       resource,
-      JSON_ENDPOINTS.includes(resource) ? null : body, // don't sign JSON bodies; only parameters
+      isJson ? null : body, // don't sign JSON bodies; only parameters
     );
 
     const postHeaders = Object.assign({}, baseHeaders, headers);
-    if (JSON_ENDPOINTS.includes(resource)) {
+    if (isJson) {
       body = JSON.stringify(body);
     } else {
       body = percentEncode(querystring.stringify(body));
